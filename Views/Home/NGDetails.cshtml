@@ -1,0 +1,42 @@
+﻿@model RespaurantWebAPI.Models.Restaurant
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html data-ng-app="ngApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NGDetails</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+
+</head>
+<body>
+    <div id="container" data-ng-controller="ngDetailsController">
+        <div class="jumbotron">
+            Welcome to the Angular version of this site :-)
+        </div>
+        <h3>Address</h3>
+        <div class="table">
+            <div class="row">
+                <div class="col-md-3">
+                    <span>{{ model.address1 }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span>79098 Freiburg, DE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/ngApp.js"></script>
+    <script src="~/Scripts/Home/ngDetailsController.js"></script>
+    <script src="~/Scripts/Home/ngDetailsService.js"></script>
+</body>
+</html>

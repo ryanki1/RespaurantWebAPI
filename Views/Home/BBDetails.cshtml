@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BBDetails</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <section id="container">
+        <header class="btn-toolbar">
+            <ul id="detailsMenuItems" class="showDetailsNav nav nav-pills">
+            </ul>
+        </header>
+
+        <article id="hook">
+
+        </article>
+
+        <script type="text/template" id="detailsMenuItem">
+            <a class="btn <%- btnClass %>"><i class="glyphicon <%- glyphiconClass %>"></i></a>
+        </script>
+
+        <script type="text/template" id="detailsAddress">
+            <div class="addressDetails panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="tagesmenu">** Address **</h4>
+                </div>
+                <ul class="list-group">
+                    <li class="address1 list-group-item"><%= address1 %></li>
+                    <li class="address2 list-group-item">** 79098 Freiburg, DE **</li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/template" id="detailsOpenHour">
+            <div class="openhourDetails panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="tagesmenu">** Opening hours **</h4>
+                </div>
+                <ul class="list-group">
+                    <li class="mofr list-group-item">** Mo - Sa: 9.30 - 24.00 Uhr **</li>
+                    <li class="saso list-group-item">** Sonntags und Feiertags geschlossen **</li>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/template" id="detailsCuisine">
+            <div class="menuDetails panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="tagesmenu">** Tagesmenu: CHF 21.50 **</h4>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr><td>** Kalbschipolata (CH) **</td></tr>
+                        <tr><td>** Salat **</td></tr>
+                    </tbody>
+                </table>
+                <div class="panel-heading">
+                    <h4 class="vegMenu">** Vegetarisches Menu: CHF 19.50 **</h4>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr><td>** Camembert mit Preiselbeersauce **</td></tr>
+                        <tr><td>** Salat **</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </script>
+    </section>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/underscore.js"></script>
+    <script src="~/Scripts/backbone.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/Home/bbDetails.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            window.respaurantApp = (window.respaurantApp || {});
+
+            var modelMenuItems = new window.respaurantApp.ModelMenuItems();
+
+            modelMenuItems.add([{
+                'btnClass': 'btn-info',
+                'glyphiconClass': 'glyphicon-home',
+                selectedModel: window.respaurantApp.ModelAddress,
+                selectedView: window.respaurantApp.ViewAddress
+            }, {
+                'btnClass': 'btn-info',
+                'glyphiconClass': 'glyphicon-time',
+                selectedModel: window.respaurantApp.ModelOpenHour,
+                selectedView: window.respaurantApp.ViewOpenHour
+            }, {
+                'btnClass': 'btn-info',
+                'glyphiconClass': 'glyphicon-glass',
+                selectedModel: window.respaurantApp.ModelCuisine,
+                selectedView: window.respaurantApp.ViewCuisine
+            }]);
+
+            var viewMenuItems = new window.respaurantApp.ViewMenuItems({ model: modelMenuItems });
+            viewMenuItems.render({ el: "#detailsMenuItems" });
+        });
+    </script>
+
+</body>
+</html>
