@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>BBDetails</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/home/bbDetails.css" rel="stylesheet" />
 </head>
 <body>
     <section id="container">
@@ -21,8 +22,20 @@
 
         </article>
 
+        <footer class="footer">
+            <div class="row">
+                <div class="label label-info pageHint pull-left">
+                    <span class="pageHintInner">1-10 / 20</span>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-left"><i class="glyphicon glyphicon-hand-left"></i></button>
+                    <button class="btn btn-right"><i class="glyphicon glyphicon-hand-right"></i></button>
+                </div>
+            </div>
+        </footer>
+
         <script type="text/template" id="detailsMenuItem">
-            <a class="btn <%- btnClass %>"><i class="glyphicon <%- glyphiconClass %>"></i></a>
+            <a class="btn {{ btnClass }}"><i class="glyphicon {{ glyphiconClass }}"></i></a>
         </script>
 
         <script type="text/template" id="detailsAddress">
@@ -74,34 +87,105 @@
     </section>
     <script src="~/Scripts/jquery-1.9.1.js"></script>
     <script src="~/Scripts/underscore.js"></script>
+    <script src="~/Scripts/handlebars.js"></script>
     <script src="~/Scripts/backbone.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/Home/bbDetails.js"></script>
+    <script src="~/Scripts/Home/bbDetailsHandlebars.js"></script>
     <script type="text/javascript">
         $(function () {
             window.respaurantApp = (window.respaurantApp || {});
 
+            var collectionRespaurant = new window.respaurantApp.CollectionRespaurant();
+            var collectionAddress = new window.respaurantApp.CollectionAddress();
+            var collectionOpenHour = new window.respaurantApp.CollectionOpenHour();
+            var collectionCuisine = new window.respaurantApp.CollectionCuisine();
+
+            var modelRespaurant1 = new window.respaurantApp.ModelRespaurant({ address1: "Rathausplatz 1" });
+            var modelRespaurant2 = new window.respaurantApp.ModelRespaurant({ address2: "Rathausplatz 10" });
+            var modelRespaurant3 = new window.respaurantApp.ModelRespaurant({ address3: "Rathausplatz 20" });
+            var modelRespaurant4 = new window.respaurantApp.ModelRespaurant({ address4: "Rathausplatz 30" });
+            var modelRespaurant5 = new window.respaurantApp.ModelRespaurant({ address5: "Rathausplatz 40" });
+
+            var modelAddress1 = new window.respaurantApp.ModelAddress({ address1: "Rathausplatz 1" });
+            var modelAddress2 = new window.respaurantApp.ModelAddress({ address2: "Rathausplatz 10" });
+            var modelAddress3 = new window.respaurantApp.ModelAddress({ address3: "Rathausplatz 20" });
+            var modelAddress4 = new window.respaurantApp.ModelAddress({ address4: "Rathausplatz 30" });
+            var modelAddress5 = new window.respaurantApp.ModelAddress({ address5: "Rathausplatz 40" });
+            
+            var modelOpenHour1 = new window.respaurantApp.ModelOpenHour({});
+            var modelOpenHour2 = new window.respaurantApp.ModelOpenHour({});
+            var modelOpenHour3 = new window.respaurantApp.ModelOpenHour({});
+            var modelOpenHour4 = new window.respaurantApp.ModelOpenHour({});
+            var modelOpenHour5 = new window.respaurantApp.ModelOpenHour({});
+
+            var modelCuisine1 = new window.respaurantApp.ModelCuisine({});
+            var modelCuisine2 = new window.respaurantApp.ModelCuisine({});
+            var modelCuisine3 = new window.respaurantApp.ModelCuisine({});
+            var modelCuisine4 = new window.respaurantApp.ModelCuisine({});
+            var modelCuisine5 = new window.respaurantApp.ModelCuisine({});
+
+            collectionRespaurant.add(modelRespaurant1);
+            collectionRespaurant.add(modelRespaurant2);
+            collectionRespaurant.add(modelRespaurant3);
+            collectionRespaurant.add(modelRespaurant4);
+            collectionRespaurant.add(modelRespaurant5);
+
+            collectionAddress.add(modelAddress1);
+            collectionAddress.add(modelAddress2);
+            collectionAddress.add(modelAddress3);
+            collectionAddress.add(modelAddress4);
+            collectionAddress.add(modelAddress5);
+
+            collectionOpenHour.add(modelOpenHour1);
+            collectionOpenHour.add(modelOpenHour2);
+            collectionOpenHour.add(modelOpenHour3);
+            collectionOpenHour.add(modelOpenHour4);
+            collectionOpenHour.add(modelOpenHour5);
+
+            collectionCuisine.add(modelCuisine1);
+            collectionCuisine.add(modelCuisine2);
+            collectionCuisine.add(modelCuisine3);
+            collectionCuisine.add(modelCuisine4);
+            collectionCuisine.add(modelCuisine5);
+
             var modelMenuItems = new window.respaurantApp.ModelMenuItems();
 
-            modelMenuItems.add([{
+            var viewMenuItem1 = new window.respaurantApp.ModelMenuItem({
                 'btnClass': 'btn-info',
                 'glyphiconClass': 'glyphicon-home',
                 selectedModel: window.respaurantApp.ModelAddress,
-                selectedView: window.respaurantApp.ViewAddress
-            }, {
+                selectedView: window.respaurantApp.ViewAddress,
+                collection: collectionAddress,
+                collectionRespaurant: collectionRespaurant
+            });
+            var viewMenuItem2 = new window.respaurantApp.ModelMenuItem({
                 'btnClass': 'btn-info',
                 'glyphiconClass': 'glyphicon-time',
                 selectedModel: window.respaurantApp.ModelOpenHour,
-                selectedView: window.respaurantApp.ViewOpenHour
-            }, {
+                selectedView: window.respaurantApp.ViewOpenHour,
+                collection: collectionOpenHour,
+                collectionRespaurant: collectionRespaurant
+            });
+            var viewMenuItem3 = new window.respaurantApp.ModelMenuItem({
                 'btnClass': 'btn-info',
                 'glyphiconClass': 'glyphicon-glass',
                 selectedModel: window.respaurantApp.ModelCuisine,
-                selectedView: window.respaurantApp.ViewCuisine
-            }]);
+                selectedView: window.respaurantApp.ViewCuisine,
+                collection: collectionCuisine,
+                collectionRespaurant: collectionRespaurant
+            });
+            modelMenuItems.add([viewMenuItem1,
+                                viewMenuItem2,
+                                viewMenuItem3
+            ]);
+            var viewMenuItems = new window.respaurantApp.ViewMenuItems({ collection: modelMenuItems });
+            viewMenuItems.render();
 
-            var viewMenuItems = new window.respaurantApp.ViewMenuItems({ model: modelMenuItems });
-            viewMenuItems.render({ el: "#detailsMenuItems" });
+            var viewAddress = new window.respaurantApp.ViewAddress({ model: collectionAddress.models[collectionRespaurant.pointer] });
+            var viewOpenHour = new window.respaurantApp.ViewOpenHour({ model: collectionOpenHour.models[collectionRespaurant.pointer] });
+            var viewCuisine = new window.respaurantApp.ViewCuisine({ model: collectionCuisine.models[collectionRespaurant.pointer] });
+            var viewFooter = new window.respaurantApp.ViewFooter({ collection: collectionRespaurant });
+            viewAddress.render();
         });
     </script>
 

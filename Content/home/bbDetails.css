@@ -1,0 +1,29 @@
+﻿.footer {
+    opacity: 0.6;
+    background-color: lightblue;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 20px 20px 10px;
+}
+
+.pageHintInner {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+}
+
+@media all and (orientation:portrait) {
+    .footer {
+        background-color: darkblue;
+    }
+}
+
+@media all and (orientation:landscape) {
+    .footer {
+        background-color: yellow;
+    }
+}
+
+
+

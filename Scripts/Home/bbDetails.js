@@ -40,6 +40,7 @@ $(function (app, $, bb) {
     app.ViewMenuItems = bb.View.extend({
         el: '#detailsMenuItems',
         initialize: function () {
+            var self = this;
             this.listenTo(this.model, 'change', 'alert');
             this.listenTo(this.model, 'reset', 'render');
             this.$menuItems = this.$el;
@@ -60,7 +61,7 @@ $(function (app, $, bb) {
         events: {
             "click a": "ModelMenuItemClick",
         },
-        template: _.template($('#detailsMenuItem').html()),
+        template: Handlebars.compile($('#detailsMenuItem').html()),
         render: function () {
             this.$el.html(this.template(this.model.toJSON()));
             return this;

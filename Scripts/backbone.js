@@ -437,7 +437,7 @@
       return this.sync('read', this, options);
     },
 
-    // Set a hash of model attributes, and sync the model to the server.
+    // Set a hash of model attributes, and sync the model to the server.template
     // If the server returns an attributes hash that differs, the model's
     // state will be `set` again.
     save: function(key, val, options) {
